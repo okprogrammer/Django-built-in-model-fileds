@@ -16,6 +16,15 @@ PUBLISH_CHOICES = {
     ('publish','Publish'),
     ('private','Private'),
 }
+
+class PostModelManager(models.Manager):
+    def all(self,*args,**kwargs):
+        qs=super(PostModelManager,self).all(*args,**kwargs).filter(active=True)
+        print(qs)
+        return qs
+
+objects = PostModelManager()
+other = PostModelManager()
 class PostModel(models.Model):
     id = models.BigAutoField(primary_key=True)
     active = models.BooleanField(default=True)
